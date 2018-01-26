@@ -24,7 +24,7 @@ radio.begin(function() {
 		console.log("TX Ready");
 		setInterval(function(){
         degrees += 30;
-        tx.write(degrees); // Send a message
+        tx.write(degrees.toString()); // Send a message
         if(degrees > 180) {
           degrees = 0;
         }
