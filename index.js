@@ -16,12 +16,12 @@ radio.autoRetransmit({
 radio.begin(function() {
 
 	var rx = radio.openPipe('rx', 0xF0F0F0F0E1); // Listen at address
-	var tx = radio.openPipe('tx', 0xF5F0F0F0F2); // Send to address
+	var tx = radio.openPipe('tx', 0xF0F0F0F0F2); // Send to address
 
 	// Fires when our transmission pipe is ready
 	tx.on('ready', function() {
 		console.log("TX Ready");
-		tx.write("I-PI!"); // Send a quick "I'm here" message
+		tx.write("90"); // Send a quick "I'm here" message
 	});
 
 	// Fires when our reception pipe is ready
