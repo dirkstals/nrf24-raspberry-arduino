@@ -15,7 +15,6 @@ radio.autoRetransmit({
 // Start the radio
 radio.begin(function() {
 
-	var rx = radio.openPipe('rx', 0xF0F0F0F0E1); // Listen at address
 	var tx = radio.openPipe('tx', 0xF0F0F0F0F2); // Send to address
   var degrees = 0;
 
@@ -31,23 +30,8 @@ radio.begin(function() {
     }, 1000);
 	});
 
-	// Fires when our reception pipe is ready
-	rx.on('ready', function() {
-		console.log("RX Ready");
-		radio.printDetails();
-	});
-
-	// Fires when our reception pipe recieves data
-	rx.on('data', function(d) {
-		console.log("Recieved:", d.toString('utf8')); // Decode the data and print
-		tx.write(d); // Send back the same data we just got
-	});
-
 	// Handler for errors
 	tx.on('error', function(e) {
-		console.log("Error:", e);
-	});
-	rx.on('error', function(e) {
 		console.log("Error:", e);
 	});
 });
