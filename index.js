@@ -17,11 +17,18 @@ radio.begin(function() {
 
 	var rx = radio.openPipe('rx', 0xF0F0F0F0E1); // Listen at address
 	var tx = radio.openPipe('tx', 0xF0F0F0F0F2); // Send to address
+  var degrees = 0;
 
-	// Fires when our transmission pipe is ready
+  // Fires when our transmission pipe is ready
 	tx.on('ready', function() {
 		console.log("TX Ready");
-		tx.write("90"); // Send a quick "I'm here" message
+		setInterval(function(){
+        degrees += 30;
+        tx.write(degrees); // Send a message
+        if(degrees > 180) {
+          degrees = 0;
+        }
+    }, 5000);
 	});
 
 	// Fires when our reception pipe is ready
