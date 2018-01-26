@@ -28,7 +28,7 @@ radio.begin(function() {
         if(degrees > 180) {
           degrees = 0;
         }
-    }, 5000);
+    }, 1000);
 	});
 
 	// Fires when our reception pipe is ready
