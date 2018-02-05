@@ -7,8 +7,9 @@ var radio = nrf.connect(spiDev, cePin); // Connect to the radio
 radio.channel(0x4c); // Set channel to 76
 radio.dataRate('1Mbps') // Set data rate to 1Mbps
 radio.crcBytes(2) // Set the CRC to 2
+radio.transmitPower('PA_MAX')
 radio.autoRetransmit({
-	count: 15,
+	count: 5,
 	delay: 4000
 }); // Auto retransmit up to 15 times
 
