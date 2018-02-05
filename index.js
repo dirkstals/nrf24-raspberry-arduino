@@ -1,5 +1,5 @@
 var spiDev = "/dev/spidev0.0";
-var cePin = 24;
+var cePin = 26;   // 13 ce, 12 csn
 var irqPin = 25;
 
 var nrf = require('nrf');
