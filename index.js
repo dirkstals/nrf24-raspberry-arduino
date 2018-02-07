@@ -16,6 +16,7 @@ radio.autoRetransmit({
 // Start the radio
 radio.begin(function() {
 
+	var rx = radio.openPipe('rx', 0xF0F0F0F0E1),
 	var tx = radio.openPipe('tx', 0xF0F0F0F0F2); // Send to address
   var degrees = 0;
 
@@ -31,6 +32,8 @@ radio.begin(function() {
         }
     }, 1000);
 	});
+
+	rx.pipe(tx); 
 
 	// Handler for errors
 	tx.on('error', function(e) {
