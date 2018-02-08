@@ -1,15 +1,15 @@
 var spiDev = "/dev/spidev0.0";
-var cePin = 24;
+var cePin = 22;
 var irqPin = 25;
 
 var nrf = require('nrf');
-var radio = nrf.connect(spiDev, cePin); // Connect to the radio
+var radio = nrf.connect(spiDev, cePin, irqPin); // Connect to the radio
 radio.channel(0x4c).dataRate('1Mbps').crcBytes(2).autoRetransmit({count:15, delay:4000});
 
 // Start the radio
 radio.begin(function() {
 
-	var rx = radio.openPipe('rx', 0xF0F0F0F0E1);
+	// var rx = radio.openPipe('rx', 0xF0F0F0F0E1);
 	var tx = radio.openPipe('tx', 0xF0F0F0F0D2); // Send to address
   var degrees = 0;
 
@@ -26,7 +26,7 @@ radio.begin(function() {
     }, 1000);
 	});
 
-	rx.pipe(tx);
+	// rx.pipe(tx);
 
 	// Handler for errors
 	tx.on('error', function(e) {
