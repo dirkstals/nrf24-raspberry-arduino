@@ -9,23 +9,38 @@ var radio = nrf.connect(spiDev, cePin, irqPin); // Connect to the radio
 // Start the radio
 radio.begin(function() {
 
-	// var rx = radio.openPipe('rx', 0xF0F0F0F0E1);
-	var tx = radio.openPipe('tx', 0xE8E8F0F0E1); // Send to address
+	var rx = radio.openPipe('rx', 0xE8E8F0F0E1);
+	// var tx = radio.openPipe('tx', 0xE8E8F0F0E1); // Send to address
   var degrees = 0;
 
   // Fires when our transmission pipe is ready
-	tx.on('ready', function() {
-			var bool = true;
+	// tx.on('ready', function() {
+	// 		var bool = true;
+  //
+	// 		setInterval(function(){
+	// 			bool = !bool;
+	// 			tx.write(bool.toString());
+  //
+	// 			console.log(bool.toString());
+	// 		}, 1000);
+  //
+	// });
 
-			setInterval(function(){
-				bool = !bool;
-				tx.write(bool.toString());
-			}, 1000);
-
+	rx.on('ready', function(e) {
+		console.log("RX Ready");
 	});
 
+
+	rx.on('data', function (d) {
+      console.log("Got data, will respond", d.readUInt32BE(0));
+  });
+
 	// Handler for errors
-	tx.on('error', function(e) {
+	// tx.on('error', function(e) {
+	// 	console.log("Error:", e);
+	// });
+  //
+	rx.on('error', function(e) {
 		console.log("Error:", e);
 	});
 });
