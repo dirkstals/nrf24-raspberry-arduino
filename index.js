@@ -2,10 +2,6 @@ var spiDev = "/dev/spidev0.0";
 var cePin = 22;
 var irqPin = 25;
 
-var configPin = 7;
-
-
-var gpio = require("pi-gpio");
 var nrf = require('nrf');
 var radio = nrf.connect(spiDev, cePin, irqPin); // Connect to the radio
 // radio.channel(0x4c).dataRate('1Mbps').crcBytes(2).autoRetransmit({count:15, delay:4000});
@@ -19,15 +15,12 @@ radio.begin(function() {
 
   // Fires when our transmission pipe is ready
 	tx.on('ready', function() {
+			var bool = true;
 
-		gpio.open(configPin, "input", function(err) {
 			setInterval(function(){
-				gpio.read(configPin, function(err, value) {
-					if(err) throw err;
-					console.log(value);	// The current state of the pin
-				});
-			});
-		});
+				bool = !bool;
+				tx.write(bool);
+			}, 1000);
 
 	});
 
