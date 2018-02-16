@@ -5,7 +5,7 @@ var irqPin = 25;
 var configPin = 7;
 
 
-var wpi = require('wiring-pi');
+var gpio = require("pi-gpio");
 var nrf = require('nrf');
 var radio = nrf.connect(spiDev, cePin, irqPin); // Connect to the radio
 // radio.channel(0x4c).dataRate('1Mbps').crcBytes(2).autoRetransmit({count:15, delay:4000});
@@ -20,18 +20,15 @@ radio.begin(function() {
   // Fires when our transmission pipe is ready
 	tx.on('ready', function() {
 
-		wpi.setup('wpi');
-		var started = false;
-		var clock = null;
-
-		wpi.pinMode(configPin, wpi.INPUT);
-		wpi.pullUpDnControl(configPin, wpi.PUD_UP);
-		wpi.wiringPiISR(configPin, wpi.INT_EDGE_BOTH, function() {
-		  var button = wpi.digitalRead(configPin);
-			if(button) {
-				tx.write('hello world');
-			}
+		gpio.open(configPin, "input", function(err) {
+			setInterval(function(){
+				gpio.read(configPin, function(err, value) {
+					if(err) throw err;
+					console.log(value);	// The current state of the pin
+				});
+			});
 		});
+
 	});
 
 	// Handler for errors
