@@ -16,14 +16,14 @@ radio.begin(function() {
 
   // Fires when our transmission pipe is ready
 	tx.on('ready', function() {
-			// var bool = true;
-      //
-			// setInterval(function(){
-			// 	bool = !bool;
-			// 	tx.write(bool.toString());
-      //
-			// 	console.log(bool.toString());
-			// }, 1000);
+			var bool = true;
+
+			setInterval(function(){
+				bool = !bool;
+				tx.write(bool.toString());
+      
+				console.log(bool.toString());
+			}, 1000);
 
 			console.log('TX Ready')
 
