@@ -19,7 +19,7 @@ radio.begin(function() {
 
 			setInterval(function(){
 				bool = !bool;
-				tx.write(bool);
+				tx.write(bool.toString());
 			}, 1000);
 
 	});
