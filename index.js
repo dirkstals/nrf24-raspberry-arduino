@@ -5,7 +5,7 @@ var irqPin = 25;
 var configPin = 7;
 
 
-
+var wpi = require('wiring-pi');
 var nrf = require('nrf');
 var radio = nrf.connect(spiDev, cePin, irqPin); // Connect to the radio
 // radio.channel(0x4c).dataRate('1Mbps').crcBytes(2).autoRetransmit({count:15, delay:4000});
